@@ -3,8 +3,16 @@
   yum:
     name: "{{ epel_repo_url }}"
     state: present
+  register: task_result
+  until: task_result is success
+  retries: 5
+  delay: 2
 
 - name: Import EPEL GPG key
   rpm_key:
     key: "{{ epel_repo_gpg_key_url }}"
     state: present
+  register: task_result
+  until: task_result is success
+  retries: 5
+  delay: 2
